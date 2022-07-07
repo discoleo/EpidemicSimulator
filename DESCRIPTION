@@ -2,11 +2,11 @@ Package: EpidemSimulator
 Title: Shiny web app to simulate epidemics using various compartment models
 Version: 0.5.1
 Authors@R:
-    person("Anamaria", "Bica", "anamaria.bica00@e-uvt.ro", role = c("aut", "cre"))
-    person("Leonard", "Mada", "leo.mada@syonic.eu", role = c("aut", "cre"))
+    person("Anamaria", "Bica", email = "anamaria.bica00@e-uvt.ro", role = c("aut"))
+    person("Leonard", "Mada", email =  "leo.mada@syonic.eu", role = c("aut", "cre", "ths"))
 Depends: shinyBS
 Imports: shiny, shinyjs, deSolve, graphics, diagram
-Description: Test.
+Description: Simulator for various compartment models.
 License: `use_gpl3_license()`
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -14,5 +14,5 @@ RoxygenNote: 7.2.0
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-URL:
-BugReports:
+URL: https://github.com/discoleo/EpidemicSimulator
+BugReports: https://github.com/discoleo/EpidemicSimulator
