@@ -1,4 +1,4 @@
-Package: EpidemSimulator
+Package: EpidemicSimulator
 Title: Shiny web app to simulate epidemics using various compartment models
 Version: 0.5.1
 Authors@R:
