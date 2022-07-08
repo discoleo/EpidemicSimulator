@@ -19,80 +19,66 @@
 ### Supervisor: Leonard Mada
 ### Syonic SRL
 
-# install.packages(diagram)
-
-# library(diagram)
-
 # Colors for compartments
-col = list(S = "green", V = "light green", E = "light yellow", I = "yellow", 
-           H = "orange", D = "gray", R = "green");
+col = list(
+	S = "green", V = "light green", E = "light yellow", I = "yellow", 
+	H = "orange", D = "gray", R = "green");
 
-# Function for generating two complementary arrows
-curvedArrows2 = function(x, y, dx, dy, curve, lcol, scaleX, scaleY, arr.pos=0.95) {
-  if(length(curve) == 1) curve = c(curve, -curve);
-  # Arrow 1:
-  diagram::curvedarrow(
-    from = c(x + dx[1] * scaleX, y + dy[1] * scaleY),
-    to   = c(x + dx[2] * scaleX, y + dy[2] * scaleY),
-    curve = curve[1], arr.pos = arr.pos, lcol=lcol)
-  
-  # Complementary Arrow:
-  diagram::curvedarrow(
-    from = c(x + dx[1] * scaleX, y - dy[1] * scaleY),
-    to   = c(x + dx[2] * scaleX, y - dy[2] * scaleY),
-    curve = curve[2], arr.pos = arr.pos, lcol=lcol)
-}
 
 ##################
 ### Schema SIR ###
 ##################
 
-diagram1  = function(file = "BasicSIR.png", save.png = FALSE) {
-  
+diagramBasicSIR = function(lwd=2, file = "BasicSIR.png", save.png = FALSE,
+		scaleX = 3/4, scaleY = 3/4) {
   if(save.png) {
     # run this to save as png;
     png(file = file, width = 11.7, height = 8.3, units = "in", res = 100)
   } else {
-   # dev.new(width = 11.7, height = 8.3)
+    # dev.new(width = 11.7, height = 8.3)
   }
   
-  # number of categories in the sir model
-  Numgenerations <- 3
-  DiffMat <- matrix(data = 0, nrow = Numgenerations, ncol = Numgenerations)
-  m <- as.data.frame(DiffMat)
+  # Number of compartments in the SIR model
+  nComp = 3
+  DiffMat = matrix(data = character(0), nrow = nComp, ncol = nComp);
+  m = as.data.frame(DiffMat);
   
   # names and colors of boxes
-  name <- c('S', 'I', 'R')
-  color <-  c(col$S, col$I, col$R)
+  name <- c('S', 'I', 'R');
+  color <- unlist(col[name]);
   
-  # arrows 
-  m[[2,1]] = ""
-  m[[3,2]] = ""
+  ### Arrows 
+  m[[2,1]] = "";
+  m[[3,2]] = "";
   
-  # plotting the diagram
-  diagram::plotmat(A = m, pos = 3, name = name, lwd = 2,
+  ### Plot
+  # Diagram
+  diagram::plotmat(A = m, pos = 3, name = name, lwd=lwd,
           arr.width = 0.25, curve = 0,
           box.size = 0.08, box.col = color, arr.type = "simple", 
-          arr.pos = 0.75, main = "SIR model",box.cex = 5)
+          arr.pos = 0.75, main = "SIR model", box.cex = 5)
   
-  # the curved arrow (coordinates hard coded)
-  diagram::curvedarrow(from = c(0.45,0.58), to = c(0.3,0.5), lwd = 2,
+  # Curved arrow
+  # - coordinates: hard coded;
+  arr.pos = 0.93; delta = 0.015;
+  diagram::curvedarrow(from = c(0.45, 0.58), to = c(0.3, 0.5 + delta), lwd=lwd,
               arr.width = 0.4, curve = 0.5, arr.type = "triangle", 
-              arr.pos = 0.8, lcol = "red", arr.col = "red")
+              arr.pos = arr.pos, lcol = col$I, arr.col = col$I)
 }
+
 
 
 ##############################
 ### Schema Hospitalisation ###
 ##############################
 
-diagram.H  = function(file = "SIR Hospitalisation.png", save.png = FALSE,scaleX = 3/4, scaleY = 3/4) {
+diagram.H  = function(file = "SIR Hospitalisation.png", save.png = FALSE, scaleX = 3/4, scaleY = 3/4) {
   
   if(save.png) {
     # run this to save as png;
     png(file = file, width = 11.7, height = 8.3, units = "in", res = 100)
   } else {
-    #dev.new(width = 11.7, height = 8.3)
+    # dev.new(width = 11.7, height = 8.3)
   }
   
   # number of categories in the sir model
@@ -316,7 +302,8 @@ diagram.EH  = function(file = "SIR + EH.png", save.png = FALSE,scaleX = 3/4, sca
 ### Schema Vaccination ###
 ##########################
 
-diagramV  = function(file = "SIR + Vaccination.png", save.png = FALSE,scaleX = 1/2, scaleY = 1/2) {
+diagramV = function(file = "SIR + Vaccination.png", save.png = FALSE,
+		scaleX = 1/2, scaleY = 1/2) {
   
   if(save.png) {
     # run this to save as png;
@@ -428,13 +415,14 @@ diagramV  = function(file = "SIR + Vaccination.png", save.png = FALSE,scaleX = 1
 ### Schema Vaccination Stratified ###
 #####################################
 
-diagramVS  = function(file = "SIR + VaccinationAgeStratified.png", save.png = FALSE,scaleX = 3/4, scaleY = 3/4) {
+diagramVS  = function(file = "SIR + VaccinationAgeStratified.png", save.png = FALSE,
+		scaleX = 3/4, scaleY = 3/4) {
   
   if(save.png) {
     # run this to save as png;
     png(file = file, width = 11.7, height = 8.3, units="in", res = 100)
   } else {
-    #dev.new(width = 11.7, height = 8.3)
+    # dev.new(width = 11.7, height = 8.3)
   }
   
   # number of categories in the sir model
@@ -547,9 +535,9 @@ diagramVS  = function(file = "SIR + VaccinationAgeStratified.png", save.png = FA
                 scaleX=scaleX, scaleY=scaleY);
 }
 
-#######################
-### Schema 2 Viruses###
-#######################
+########################
+### Schema 2 Viruses ###
+########################
 
 diagram.2V = function(file = "2 Virusess.png", save.png = FALSE, scaleX = 1/3, scaleY = 1/3){
   
@@ -557,7 +545,7 @@ diagram.2V = function(file = "2 Virusess.png", save.png = FALSE, scaleX = 1/3, s
     # run this to save as png;
     png(file = file, width = 11.7, height = 8.3, units = "in", res=100)
   } else {
-    #dev.new(width = 11.7, height = 8.3)
+    # dev.new(width = 11.7, height = 8.3)
   }
   
   # number of categories in the sir model
@@ -672,7 +660,7 @@ diagram.AG3 = function(file = "Age Groups Model.png", save.png = FALSE, scaleX =
     # run this to save as png;
     png(file = file, width = 11.7, height = 8.3, units = "in", res=100)
   } else {
-    #dev.new(width = 11.7, height = 8.3)
+    # dev.new(width = 11.7, height = 8.3)
   }
   
   # number of categories in the sir model

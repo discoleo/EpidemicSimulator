@@ -66,7 +66,7 @@ getServer = function() {
     if(input$toggleB == FALSE)
       initSIR_Basic(custom, valTime)
     else
-      diagram1();
+      diagramBasicSIR();
   })
   
   ### Extended Model: Old Age + Hospital
