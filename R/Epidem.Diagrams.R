@@ -9,15 +9,15 @@
 ### Supervisor: Leonard Mada
 ### Syonic SRL
 
-### based of:
-### Team Project 2021
-### Students:
-###   Dora Calea, Ioana Obreja,
-###   Liviu Sopon and Dragos Ursan
-###   West University, Timisoara
-###
-### Supervisor: Leonard Mada
-### Syonic SRL
+# Parts of the work are based on:
+# Team Project 2021
+# Students:
+#   Dora Calea, Ioana Obreja,
+#   Liviu Sopon and Dragos Ursan
+#   West University, Timisoara
+#
+# Supervisor: Leonard Mada
+# Syonic SRL
 
 # Colors for compartments
 col = list(
@@ -60,8 +60,7 @@ diagramBasicSIR = function(lwd=2, file = "Model_SIR_Basic.png", save.png = FALSE
   m[[2,1]] = "";
   m[[3,2]] = "";
   
-  ### Plot
-  # Diagram
+  ### Plot diagram
   plotMatrix(m, pos = 3, name=name, col = color,
 	main = "SIR model",
 	box.size = 0.05, box.cex = 3);
@@ -89,7 +88,7 @@ diagram.H = function(file = "Model_SIHRD.png", save.png = FALSE, scaleX = 3/4, s
     # dev.new(width = 11.7, height = 8.3)
   }
   
-  # number of compartments in the SIR model
+  # Number of compartments in the SIR model
   nComp = 8
   DiffMat = matrix(data = character(0), nrow = nComp, ncol = nComp);
   m <- as.data.frame(DiffMat)
@@ -154,7 +153,7 @@ diagram.H = function(file = "Model_SIHRD.png", save.png = FALSE, scaleX = 3/4, s
   coord[8,1] = 0.5 + 0.2 * scaleY
   coord[8,2] = 0.5 - 0.4 * scaleY
   
-  # plotting the diagram
+  ### Plot diagram
   plotMatrix(m, pos = coord, name = name, col = color,
 	main = "SIR + Hospitalization Model",
 	box.size = 0.0175, box.cex = 1.75);
@@ -191,7 +190,7 @@ diagram.EH  = function(file = "Model_SEIHRD.png", save.png = FALSE, scaleX = 3/4
     # dev.new(width = 11.7, height = 8.3)
   }
   
-  # number of compartments in the SIR model
+  # Number of compartments in the SIR model
   nComp = 10
   DiffMat <- matrix(data = 0, nrow = nComp, ncol = nComp)
   m <- as.data.frame(DiffMat)
@@ -369,7 +368,7 @@ diagramV = function(file = "Model_SIR_Vaccination.png", save.png = FALSE,
   
   # So
   coord[7,1] = 0.5 - 0.4 * scaleX
-  coord[7,2] =0.5 - 0.2 * scaleY
+  coord[7,2] = 0.5 - 0.2 * scaleY
   
   # R
   coord[8,1] = 0.5 + 0.3 * scaleX
@@ -408,7 +407,7 @@ diagramV = function(file = "Model_SIR_Vaccination.png", save.png = FALSE,
 ### Schema Vaccination Stratified ###
 #####################################
 
-diagramVS  = function(file = "SIR + VaccinationAgeStratified.png", save.png = FALSE,
+diagramVS  = function(file = "Model_SIR_Vaccination_AgeStratified.png", save.png = FALSE,
 		scaleX = 3/4, scaleY = 3/4) {
   
   if(save.png) {
@@ -418,9 +417,9 @@ diagramVS  = function(file = "SIR + VaccinationAgeStratified.png", save.png = FA
     # dev.new(width = 11.7, height = 8.3)
   }
   
-  # number of categories in the sir model
-  Numgenerations <- 11
-  DiffMat <- matrix(data = 0, nrow = Numgenerations, ncol = Numgenerations)
+  # Number of compartments in the SIR model
+  nComp = 11
+  DiffMat <- matrix(data = 0, nrow = nComp, ncol = nComp)
   m <- as.data.frame(DiffMat)
   
   # names and colors of boxes
@@ -452,12 +451,11 @@ diagramVS  = function(file = "SIR + VaccinationAgeStratified.png", save.png = FA
   m[[8,6]] = ""
   m[[10,5]] = ""
   m[[10,6]] = ""
-  m[[10, 3]] = ""
-  m[[10, 4]] = ""
+  m[[10,3]] = ""
+  m[[10,4]] = ""
   
-  
-  # positions of boxes
-  coord = matrix(nrow = Numgenerations, ncol = 2)
+  ### Positions of boxes
+  coord = matrix(nrow = nComp, ncol = 2)
   
   # V[Y]
   coord[1,1] = 0.5 - 0.4 * scaleX
@@ -493,7 +491,7 @@ diagramVS  = function(file = "SIR + VaccinationAgeStratified.png", save.png = FA
   
   # D[Y]
   coord[7,1] = 0.5 + 0.45 * scaleX
-  coord[7,2] =0.5 + 0.9 * scaleY
+  coord[7,2] = 0.5 + 0.9 * scaleY
   
   # D[O]
   coord[8,1] = 0.5 + 0.45 * scaleX
@@ -503,11 +501,11 @@ diagramVS  = function(file = "SIR + VaccinationAgeStratified.png", save.png = FA
   coord[10,1] = 0.5 + 0.45 * scaleX#0.5 + 0.25 * scaleX
   coord[10,2] = 0.5 - 0.1 * scaleY#0.5 - 1 * scaleY
   
-  # plotting the diagram
-  diagram::plotmat(A = m, pos = coord, name = name, lwd = 2,
-          arr.width = 0.5, curve = 0,
-          box.size = 0.017, box.col = color, arr.type = "simple", 
-          arr.pos = 0.57, main = "SIR + Vaccination Stratified model")
+  
+  ### Plotting the diagram
+  plotMatrix(m, pos = coord, name = name, col = color,
+	main = "SIR + Vaccination Stratified Model",
+	box.size = 0.0175, box.cex = 1.75, arr.pos = 0.625);
   
   ### Curved arrows 
   # coordinates hard coded
