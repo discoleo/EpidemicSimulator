@@ -1,12 +1,12 @@
 Package: EpidemicSimulator
-Title: Shiny web app to simulate epidemics using various compartment models
+Title: Shiny web app to simulate epidemics using various compartment models: SIHRD, SEIHRD, vaccination compartment, and stratified using 2 age groups.
 Version: 0.5.1
 Authors@R:
     person("Anamaria", "Bica", email = "anamaria.bica00@e-uvt.ro", role = c("aut"))
     person("Leonard", "Mada", email =  "leo.mada@syonic.eu", role = c("aut", "cre", "ths"))
 Depends: shinyBS
 Imports: shiny, shinyjs, deSolve, graphics, diagram
-Description: Simulator for various compartment models.
+Description: Shiny web app to simulate epidemics using various compartment models: SIHRD, SEIHRD, vaccination compartment. The compartments are stratified in 2 age groups. A separate model is available with 3 age groups (children, adults, old age). Includes functionality to perform sensitivity analysis and to compute some summary statistics on the results.
 License: `use_gpl3_license()`
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
