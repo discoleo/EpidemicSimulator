@@ -24,12 +24,21 @@ col = list(
 	S = "green", V = "light green", E = "light yellow", I = "yellow", 
 	H = "orange", D = "gray", R = "green");
 
+plotMatrix = function(m, pos, name, main, col,
+		box.size=0.0175, box.cex=1.75, arr.pos=0.75, arr.width=0.25,
+		lwd=2, arr.lwd = lwd) {
+	diagram::plotmat(A = m, pos=pos, name=name, main=main,
+		lwd = lwd, box.col = col,
+		box.size = box.size, box.cex = box.cex,
+		arr.type = "simple", arr.lwd = arr.lwd, 
+		arr.width = arr.width, arr.pos = arr.pos, curve = 0);
+}
 
 ##################
 ### Schema SIR ###
 ##################
 
-diagramBasicSIR = function(lwd=2, file = "BasicSIR.png", save.png = FALSE,
+diagramBasicSIR = function(lwd=2, file = "Model_SIR_Basic.png", save.png = FALSE,
 		scaleX = 3/4, scaleY = 3/4) {
   if(save.png) {
     # run this to save as png;
@@ -53,10 +62,9 @@ diagramBasicSIR = function(lwd=2, file = "BasicSIR.png", save.png = FALSE,
   
   ### Plot
   # Diagram
-  diagram::plotmat(A = m, pos = 3, name = name, lwd=lwd,
-          arr.width = 0.25, curve = 0,
-          box.size = 0.08, box.col = color, arr.type = "simple", 
-          arr.pos = 0.75, main = "SIR model", box.cex = 5)
+  plotMatrix(m, pos = 3, name=name, col = color,
+	main = "SIR model",
+	box.size = 0.05, box.cex = 3);
   
   # Curved arrow
   # - coordinates: hard coded;
@@ -72,7 +80,7 @@ diagramBasicSIR = function(lwd=2, file = "BasicSIR.png", save.png = FALSE,
 ### Schema Hospitalisation ###
 ##############################
 
-diagram.H  = function(file = "SIR Hospitalisation.png", save.png = FALSE, scaleX = 3/4, scaleY = 3/4) {
+diagram.H = function(file = "Model_SIHRD.png", save.png = FALSE, scaleX = 3/4, scaleY = 3/4) {
   
   if(save.png) {
     # run this to save as png;
@@ -81,9 +89,9 @@ diagram.H  = function(file = "SIR Hospitalisation.png", save.png = FALSE, scaleX
     # dev.new(width = 11.7, height = 8.3)
   }
   
-  # number of categories in the sir model
-  Numgenerations <- 8
-  DiffMat <- matrix(data = 0, nrow = Numgenerations, ncol = Numgenerations)
+  # number of compartments in the SIR model
+  nComp = 8
+  DiffMat = matrix(data = character(0), nrow = nComp, ncol = nComp);
   m <- as.data.frame(DiffMat)
   
   # names and colors of boxes
@@ -114,14 +122,12 @@ diagram.H  = function(file = "SIR Hospitalisation.png", save.png = FALSE, scaleX
   m[[7,6]] = ""
   m[[8,6]] = ""
   
-  # positions of boxes
-  coord = matrix(nrow = Numgenerations, ncol = 2)
+  ### Positions of boxes
+  coord = matrix(nrow = nComp, ncol = 2)
   
   # Sy
   coord[1,1] = 0.5 - 0.4 * scaleX
   coord[1,2] = 0.5 + 0.2 * scaleY
-  
-  
   # So
   coord[2,1] = 0.5 - 0.4 * scaleX
   coord[2,2] = 0.5 - 0.2 * scaleY
@@ -129,33 +135,29 @@ diagram.H  = function(file = "SIR Hospitalisation.png", save.png = FALSE, scaleX
   # Iy
   coord[3,1] = 0.5 - 0.2 * scaleX
   coord[3,2] = 0.5 + 0.2 * scaleY
-  
   # Io
   coord[4,1] = 0.5 - 0.2 * scaleX
   coord[4,2] = 0.5 - 0.2 * scaleY
   
   # Hy
-  coord[5,1] = 0.5 #+ 0.1 * scaleX
+  coord[5,1] = 0.5 # + 0.1 * scaleX
   coord[5,2] = 0.5 + 0.2 * scaleY
-  
   # Ho
-  coord[6,1] = 0.5 #+ 0.1 * scaleX
+  coord[6,1] = 0.5 # + 0.1 * scaleX
   coord[6,2] = 0.5 - 0.2 * scaleY
   
   # D
   coord[7,1] = 0.5 + 0.2 * scaleX
   coord[7,2] = 0.5 + 0.4 * scaleY
   
-  
   # R
   coord[8,1] = 0.5 + 0.2 * scaleY
   coord[8,2] = 0.5 - 0.4 * scaleY
   
   # plotting the diagram
-  diagram::plotmat(A = m, pos = coord, name = name, lwd = 2,
-          arr.width = 0.25, curve = 0,
-          box.size = 0.021, box.col = color, arr.type = "simple", 
-          arr.pos = 0.7, main = "SIR + Hospitalization Model")
+  plotMatrix(m, pos = coord, name = name, col = color,
+	main = "SIR + Hospitalization Model",
+	box.size = 0.0175, box.cex = 1.75);
   
   ### Curved Arrows
   # coordinates are hard coded;
@@ -176,22 +178,22 @@ diagram.H  = function(file = "SIR Hospitalisation.png", save.png = FALSE, scaleX
                 scaleX=scaleX, scaleY=scaleY);
 }
 
-#######################################
-### Schema Extended Hospitalisation ###
-#######################################
+########################################
+### Schema Exposed + Hospitalisation ###
+########################################
 
-diagram.EH  = function(file = "SIR + EH.png", save.png = FALSE,scaleX = 3/4, scaleY = 3/4) {
+diagram.EH  = function(file = "Model_SEIHRD.png", save.png = FALSE, scaleX = 3/4, scaleY = 3/4) {
   
   if(save.png) {
     # run this to save as png;
     png(file = file, width = 11.7, height = 8.3, units = "in", res = 100)
   } else {
-    #dev.new(width = 11.7, height = 8.3)
+    # dev.new(width = 11.7, height = 8.3)
   }
   
-  # number of categories in the sir model
-  Numgenerations <- 10
-  DiffMat <- matrix(data = 0, nrow = Numgenerations, ncol = Numgenerations)
+  # number of compartments in the SIR model
+  nComp = 10
+  DiffMat <- matrix(data = 0, nrow = nComp, ncol = nComp)
   m <- as.data.frame(DiffMat)
   
   # names and colors of boxes
@@ -213,9 +215,9 @@ diagram.EH  = function(file = "SIR + EH.png", save.png = FALSE,scaleX = 3/4, sca
               col$E, col$E)
   
   # arrows 
-  m[[9,1]] = ""
+  m[[9,1]]  = ""
   m[[10,2]] = ""
-  m[[3,9]] = ""
+  m[[3,9]]  = ""
   m[[4,10]] = ""
   m[[5,3]] = ""
   m[[7,3]] = ""
@@ -228,15 +230,12 @@ diagram.EH  = function(file = "SIR + EH.png", save.png = FALSE,scaleX = 3/4, sca
   m[[7,6]] = ""
   m[[8,6]] = ""
   
-  # positions of boxes
-  coord = matrix(nrow = Numgenerations, ncol = 2)
-  
+  ### Positions of boxes
+  coord = matrix(nrow = nComp, ncol = 2)
   
   # Sy
   coord[1,1] = 0.5 - 0.4 * scaleX
   coord[1,2] = 0.5 + 0.2 * scaleY
-  
-  
   # So
   coord[2,1] = 0.5 - 0.4 * scaleX
   coord[2,2] = 0.5 - 0.2 * scaleY
@@ -244,7 +243,6 @@ diagram.EH  = function(file = "SIR + EH.png", save.png = FALSE,scaleX = 3/4, sca
   # Ey
   coord[9,1] = 0.5 - 0.2 * scaleX
   coord[9,2] = 0.5 + 0.2 * scaleY
-  
   # Eo
   coord[10,1] = 0.5 - 0.2 * scaleX
   coord[10,2] = 0.5 - 0.2 * scaleY
@@ -252,7 +250,6 @@ diagram.EH  = function(file = "SIR + EH.png", save.png = FALSE,scaleX = 3/4, sca
   # Iy
   coord[3,1] = 0.5 
   coord[3,2] = 0.5 + 0.2 * scaleY
-  
   # Io
   coord[4,1] = 0.5 
   coord[4,2] = 0.5 - 0.2 * scaleY
@@ -260,7 +257,6 @@ diagram.EH  = function(file = "SIR + EH.png", save.png = FALSE,scaleX = 3/4, sca
   # Hy
   coord[5,1] = 0.5 + 0.2 * scaleX
   coord[5,2] = 0.5 + 0.2 * scaleY
-  
   # Ho
   coord[6,1] = 0.5 + 0.2 * scaleX
   coord[6,2] = 0.5 - 0.2 * scaleY
@@ -273,11 +269,10 @@ diagram.EH  = function(file = "SIR + EH.png", save.png = FALSE,scaleX = 3/4, sca
   coord[8,1] = 0.5 + 0.4 * scaleY
   coord[8,2] = 0.5 - 0.4 * scaleY
 
-  # plotting the diagram
-  diagram::plotmat(A = m, pos = coord, name = name, lwd = 2,
-          arr.width = 0.25, curve = 0,
-          box.size = 0.021, box.col = color, arr.type = "simple", 
-          arr.pos = 0.7, main = "SIR + Exposed Hospitalization Model")
+  ### Plotting the diagram
+  plotMatrix(m, pos = coord, name = name, col = color,
+	main = "SIR + Exposed Hospitalization Model",
+	box.size = 0.0175, box.cex = 1.75);
   
   ### Curved Arrows
   # coordinates are hard coded;
@@ -302,19 +297,19 @@ diagram.EH  = function(file = "SIR + EH.png", save.png = FALSE,scaleX = 3/4, sca
 ### Schema Vaccination ###
 ##########################
 
-diagramV = function(file = "SIR + Vaccination.png", save.png = FALSE,
+diagramV = function(file = "Model_SIR_Vaccination.png", save.png = FALSE,
 		scaleX = 1/2, scaleY = 1/2) {
   
   if(save.png) {
     # run this to save as png;
     png(file = file, width = 11.7, height = 8.3, units="in", res = 100)
   } else {
-    #dev.new(width = 11.7, height = 8.3)
+    # dev.new(width = 11.7, height = 8.3)
   }
   
-  # number of categories in the sir model
-  Numgenerations <- 9
-  DiffMat <- matrix(data = 0, nrow = Numgenerations, ncol = Numgenerations)
+  # Number of compartments in the SIR model
+  nComp = 9
+  DiffMat <- matrix(data = 0, nrow = nComp, ncol = nComp)
   m <- as.data.frame(DiffMat)
   
   # names and colors of boxes
@@ -345,8 +340,8 @@ diagramV = function(file = "SIR + Vaccination.png", save.png = FALSE,
   m[[6,3]] = ""
   m[[8,3]] = ""
   
-  # positions of boxes
-  coord = matrix(nrow = Numgenerations, ncol = 2)
+  ### Positions of boxes
+  coord = matrix(nrow = nComp, ncol = 2)
   
   # Vy
   coord[1,1] = 0.5 - 0.2 * scaleX
@@ -384,11 +379,10 @@ diagramV = function(file = "SIR + Vaccination.png", save.png = FALSE,
   coord[9,1] = 0.5 - 0.2 * scaleX
   coord[9,2] = 0.5 - 0.4 * scaleY
   
-  # plotting the diagram
-  diagram::plotmat(A = m, pos = coord, name = name, lwd = 2,
-          arr.width = 0.25, curve = 0,
-          box.size = 0.021, box.col = color, arr.type = "simple", 
-          arr.pos = 0.85, main = "SIR + Vaccination model")
+  ### Plotting the diagram
+  plotMatrix(m, pos = coord, name = name, col = color,
+	main = "SIR + Vaccination Model",
+	box.size = 0.0175, box.cex = 1.75, arr.pos = 0.8);
   
   ### Curved Arrows 
   # coordinates hard coded
@@ -408,7 +402,6 @@ diagramV = function(file = "SIR + Vaccination.png", save.png = FALSE,
   curvedArrows2(0.5, 0.5, dx = c(0, -0.15), dy = c(0.15, -0.19), 
                 curve=0.2, lcol = col$I,
                 scaleX=scaleX, scaleY=scaleY);
-  
 }
 
 #####################################
