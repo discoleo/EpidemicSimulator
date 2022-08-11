@@ -20,9 +20,12 @@
 # Syonic SRL
 
 # Colors for compartments
-col = list(
-	S = "green", V = "light green", E = "light yellow", I = "yellow", 
-	H = "orange", D = "gray", R = "green");
+getDiagramColors = function() {
+	col = list(
+		S = "green", V = "light green", E = "light yellow", I = "yellow", 
+		H = "orange", D = "gray", R = "green");
+	return(col);
+}
 
 plotMatrix = function(m, pos, name, main, col,
 		box.size=0.0175, box.cex=1.75, arr.pos=0.75, arr.width=0.25,
@@ -38,7 +41,8 @@ plotMatrix = function(m, pos, name, main, col,
 ### Schema SIR ###
 ##################
 
-diagramBasicSIR = function(lwd=2, file = "Model_SIR_Basic.png", save.png = FALSE,
+diagramBasicSIR = function(lwd = 2, col = getDiagramColors(),
+		file = "Model_SIR_Basic.png", save.png = FALSE,
 		scaleX = 3/4, scaleY = 3/4) {
   if(save.png) {
     # run this to save as png;
@@ -63,10 +67,10 @@ diagramBasicSIR = function(lwd=2, file = "Model_SIR_Basic.png", save.png = FALSE
   ### Plot diagram
   plotMatrix(m, pos = 3, name=name, col = color,
 	main = "SIR model",
-	box.size = 0.05, box.cex = 3);
+	box.size = 0.05, box.cex = 3, arr.lwd = lwd);
   
   # Curved arrow
-  # - coordinates: hard coded;
+  # - coordinates are hard coded;
   arr.pos = 0.93; delta = 0.015;
   diagram::curvedarrow(from = c(0.45, 0.58), to = c(0.3, 0.5 + delta), lwd=lwd,
               arr.width = 0.4, curve = 0.5, arr.type = "triangle", 
@@ -79,7 +83,9 @@ diagramBasicSIR = function(lwd=2, file = "Model_SIR_Basic.png", save.png = FALSE
 ### Schema Hospitalisation ###
 ##############################
 
-diagram.H = function(file = "Model_SIHRD.png", save.png = FALSE, scaleX = 3/4, scaleY = 3/4) {
+diagram.H = function(lwd = 2, col = getDiagramColors(),
+		file = "Model_SIHRD.png", save.png = FALSE,
+		scaleX = 3/4, scaleY = 3/4) {
   
   if(save.png) {
     # run this to save as png;
@@ -156,10 +162,10 @@ diagram.H = function(file = "Model_SIHRD.png", save.png = FALSE, scaleX = 3/4, s
   ### Plot diagram
   plotMatrix(m, pos = coord, name = name, col = color,
 	main = "SIR + Hospitalization Model",
-	box.size = 0.0175, box.cex = 1.75);
+	box.size = 0.0175, box.cex = 1.75, arr.lwd = lwd);
   
   ### Curved Arrows
-  # coordinates are hard coded;
+  # - coordinates are hard coded;
   
   # from Iy to Sy & Io to So
   curvedArrows2(0.5, 0.5, dx = c(-0.215, -0.3), dy = c(0.295, 0.2),
@@ -181,7 +187,9 @@ diagram.H = function(file = "Model_SIHRD.png", save.png = FALSE, scaleX = 3/4, s
 ### Schema Exposed + Hospitalisation ###
 ########################################
 
-diagram.EH  = function(file = "Model_SEIHRD.png", save.png = FALSE, scaleX = 3/4, scaleY = 3/4) {
+diagram.EH  = function(lwd = 2, col = getDiagramColors(),
+		file = "Model_SEIHRD.png", save.png = FALSE,
+		scaleX = 3/4, scaleY = 3/4) {
   
   if(save.png) {
     # run this to save as png;
@@ -268,13 +276,13 @@ diagram.EH  = function(file = "Model_SEIHRD.png", save.png = FALSE, scaleX = 3/4
   coord[8,1] = 0.5 + 0.4 * scaleY
   coord[8,2] = 0.5 - 0.4 * scaleY
 
-  ### Plotting the diagram
+  ### Plot diagram
   plotMatrix(m, pos = coord, name = name, col = color,
 	main = "SIR + Exposed Hospitalization Model",
-	box.size = 0.0175, box.cex = 1.75);
+	box.size = 0.0175, box.cex = 1.75, arr.lwd = lwd);
   
   ### Curved Arrows
-  # coordinates are hard coded;
+  # - coordinates are hard coded;
   
   # from Iy to Sy & Io to So
   curvedArrows2(0.5, 0.5, dx = c(-0.015, -0.3), dy = c(0.295, 0.2),
@@ -296,7 +304,8 @@ diagram.EH  = function(file = "Model_SEIHRD.png", save.png = FALSE, scaleX = 3/4
 ### Schema Vaccination ###
 ##########################
 
-diagramV = function(file = "Model_SIR_Vaccination.png", save.png = FALSE,
+diagramV = function(lwd = 2, col = getDiagramColors(),
+		file = "Model_SIR_Vaccination.png", save.png = FALSE,
 		scaleX = 1/2, scaleY = 1/2) {
   
   if(save.png) {
@@ -378,13 +387,13 @@ diagramV = function(file = "Model_SIR_Vaccination.png", save.png = FALSE,
   coord[9,1] = 0.5 - 0.2 * scaleX
   coord[9,2] = 0.5 - 0.4 * scaleY
   
-  ### Plotting the diagram
+  ### Plot diagram
   plotMatrix(m, pos = coord, name = name, col = color,
 	main = "SIR + Vaccination Model",
-	box.size = 0.0175, box.cex = 1.75, arr.pos = 0.8);
+	box.size = 0.0175, box.cex = 1.75, arr.pos = 0.8, arr.lwd = lwd);
   
   ### Curved Arrows 
-  # coordinates hard coded
+  # - coordinates are hard coded;
 
   # from I[Young] to S[Young]
   # & from I[Old] to S[Old]
@@ -407,7 +416,8 @@ diagramV = function(file = "Model_SIR_Vaccination.png", save.png = FALSE,
 ### Schema Vaccination Stratified ###
 #####################################
 
-diagramVS  = function(file = "Model_SIR_Vaccination_AgeStratified.png", save.png = FALSE,
+diagramVS  = function(lwd = 2, col = getDiagramColors(),
+		file = "Model_SIR_Vaccination_AgeStratified.png", save.png = FALSE,
 		scaleX = 3/4, scaleY = 3/4) {
   
   if(save.png) {
@@ -502,14 +512,14 @@ diagramVS  = function(file = "Model_SIR_Vaccination_AgeStratified.png", save.png
   coord[10,2] = 0.5 - 0.1 * scaleY#0.5 - 1 * scaleY
   
   
-  ### Plotting the diagram
+  ### Plot diagram
   plotMatrix(m, pos = coord, name = name, col = color,
 	main = "SIR + Vaccination Stratified Model",
-	box.size = 0.0175, box.cex = 1.75, arr.pos = 0.625);
+	box.size = 0.0175, box.cex = 1.75, arr.pos = 0.625, arr.lwd = lwd);
   
   ### Curved arrows 
-  # coordinates hard coded
-    
+  # - coordinates are hard coded;
+  
   # from Iy to Sy & Io to So
   curvedArrows2(0.5, 0.5, dx = c(-0.2, -0.4), dy = c(0.6, 0.53), 
                 curve=0.7, lcol = col$I,
@@ -530,7 +540,9 @@ diagramVS  = function(file = "Model_SIR_Vaccination_AgeStratified.png", save.png
 ### Schema 2 Viruses ###
 ########################
 
-diagram.2V = function(file = "2 Virusess.png", save.png = FALSE, scaleX = 1/3, scaleY = 1/3){
+diagram.2V = function(lwd = 2, col = getDiagramColors(),
+		file = "2 Virusess.png", save.png = FALSE,
+		scaleX = 1/3, scaleY = 1/3){
   
   if(save.png) {
     # run this to save as png;
@@ -539,9 +551,9 @@ diagram.2V = function(file = "2 Virusess.png", save.png = FALSE, scaleX = 1/3, s
     # dev.new(width = 11.7, height = 8.3)
   }
   
-  # number of categories in the sir model
-  Numgenerations <- 9;
-  Diffmatrix = matrix(data = 0, nrow = Numgenerations, ncol = Numgenerations)
+  # Number of compartments in the SIR model
+  nComp = 9;
+  Diffmatrix = matrix(data = 0, nrow = nComp, ncol = nComp)
   
   m <- as.data.frame(Diffmatrix)
   
@@ -555,7 +567,6 @@ diagram.2V = function(file = "2 Virusess.png", save.png = FALSE, scaleX = 1/3, s
             expression(DV2), #7
             expression(RV1), #8
             expression(RV2)  #9
-             
             )
   
   color <-  c(col$S, col$I, col$I, 
@@ -576,76 +587,67 @@ diagram.2V = function(file = "2 Virusess.png", save.png = FALSE, scaleX = 1/3, s
   m[[7,5]] = ""
   m[[9,5]] = ""
   
-  # positions of boxes
-  coord = matrix(nrow = Numgenerations, ncol = 2)
+  ### Positions of boxes
+  coord = matrix(nrow = nComp, ncol = 2)
   
   # S
-  coord[1,1] = 0.5 -0.8 * scaleX
-  coord[1,2] = 0.5 -0.2 * scaleY
+  coord[1,1] = 0.5 - 0.8 * scaleX
+  coord[1,2] = 0.5 # - 0.2 * scaleY
   
   # IV1[1]
   coord[2,1] = 0.5 - 0.4 * scaleX
-  coord[2,2] = 0.5 + 0.2 * scaleY
-  
+  coord[2,2] = 0.5 + 0.4 * scaleY
   # IV2[2]
-  coord[3,1] = 0.5 -0.4 * scaleX
-  coord[3,2] = 0.5 -0.5 * scaleY
+  coord[3,1] = 0.5 - 0.4 * scaleX
+  coord[3,2] = 0.5 - 0.4 * scaleY
   
   # HV1[1]
-  coord[4,1] = 0.5 - 0.25 * scaleX
-  coord[4,2] = 0.5 + 0.8 * scaleY
-  
+  coord[4,1] = 0.5 - 0.1 * scaleX
+  coord[4,2] = 0.5 + 1.2 * scaleY
   # HV2[2]
   coord[5,1] = 0.5 - 0.1 * scaleX 
-  coord[5,2] = 0.5 - 1.3 * scaleY
+  coord[5,2] = 0.5 - 1.2 * scaleY
   
   # DV1[1]
   coord[6,1] = 0.5 + 0.3 * scaleX
-  coord[6,2] = 0.5 + 0.9 * scaleY
-  
+  coord[6,2] = 0.5 + 1.2 * scaleY
   # DV2[2]
   coord[7,1] = 0.5 + 0.3 * scaleX
   coord[7,2] = 0.5 - 1.2 * scaleY
   
   # RV1[1]
   coord[9,1] = 0.5 + 0.3 * scaleX
-  coord[9,2] = 0.5 - 0.5 * scaleY
-  
+  coord[9,2] = 0.5 - 0.4 * scaleY
   # RV2[2]
   coord[8,1] = 0.5 + 0.3 * scaleX
-  coord[8,2] = 0.5 + 0.2 * scaleY
+  coord[8,2] = 0.5 + 0.4 * scaleY
   
-  diagram::plotmat(A = m, pos = coord, name = name, lwd = 2,
-          arr.width = 0.5, curve = 0,
-          box.size = 0.02, box.col = color, arr.type = "simple", 
-          arr.pos = 0.6, main = "2 Viruses")
+  ### Plot diagram
+  plotMatrix(m, pos = coord, name = name, col = color,
+	main = "SIR: 2 Viruses",
+	box.size = 0.0175, box.cex = 1.625, arr.pos = 0.625, arr.lwd = lwd);
   
   ### Curved arrows 
-  # coordinates hard coded
+  # - coordinates are hard coded;
   
-  # from IV1 to SV1
-  diagram::curvedarrow(from = c(0.5 - 0.45 * scaleX,  0.5 + 0.3 * scaleY), to = c(0.5 - 0.6 * scaleX,  0.5 ), lcol = "yellow",
-              curve =0.4, arr.pos = 0.9)
+  # from I to S
+  curvedArrows2(0.5, 0.5, dx = c(-0.45, -0.6), dy = c(0.6, 0.27), 
+                curve = 0.2, lcol = col$I,
+                scaleX=scaleX, scaleY=scaleY);
   
-  # from IV2 to SV2
-  diagram::curvedarrow(from = c(0.5 - 0.45 * scaleX,  0.5 - 0.6 * scaleY), to = c(0.5 - 0.6 * scaleX,  0.5 - 0.3 * scaleY), lcol = "yellow",
-              curve =-0.3, arr.pos = 0.9)
-
-  # from HV1 to SV1
-  diagram::curvedarrow(from = c(0.5 - 0.25 * scaleX,  0.5 + 0.85 * scaleY), to = c(0.5 - 0.6 * scaleX,  0.5 ), lcol = "orange",
-              curve =0.4, arr.pos = 0.9)
-  
-  # from HV2 to SV2
-  diagram::curvedarrow(from = c(0.5 - 0.15 * scaleX ,  0.5 - 1.3 * scaleY), to = c(0.5 - 0.6 * scaleX,  0.5 - 0.3 * scaleY), lcol = "orange",
-              curve =-0.2, arr.pos = 0.9)
-  
+  # from H to S
+  curvedArrows2(0.5, 0.5, dx = c(-0.16, -0.65), dy = c(1.22, 0.27), 
+                curve = 0.15, lcol = col$H,
+                scaleX=scaleX, scaleY=scaleY, arr.pos = 0.975);
 }
 
 ##########################
 ### Diagram Age Groups ###
 ##########################
 
-diagram.AG3 = function(file = "Age Groups Model.png", save.png = FALSE, scaleX = 1/3, scaleY = 1/3){
+diagram.AG3 = function(lwd = 2, col = getDiagramColors(),
+		file = "Age Groups Model.png", save.png = FALSE,
+		scaleX = 1/3, scaleY = 1/3) {
   
   if(save.png) {
     # run this to save as png;
@@ -654,9 +656,9 @@ diagram.AG3 = function(file = "Age Groups Model.png", save.png = FALSE, scaleX =
     # dev.new(width = 11.7, height = 8.3)
   }
   
-  # number of categories in the sir model
-  Numgenerations <- 12;
-  Diffmatrix = matrix(data = 0, nrow = Numgenerations, ncol = Numgenerations)
+  # Number of compartments in the SIR model
+  nComp = 12;
+  Diffmatrix = matrix(data = 0, nrow = nComp, ncol = nComp)
   
   m <- as.data.frame(Diffmatrix)
   
@@ -673,9 +675,9 @@ diagram.AG3 = function(file = "Age Groups Model.png", save.png = FALSE, scaleX =
             expression(Dc/Rc), #10
             expression(Da/Ra), #11
             expression(Do/Ro) #12
-            #expression(Rc), #13
-            #expression(Ra), #14
-            #expression(Ro)  #15
+            # expression(Rc), #13
+            # expression(Ra), #14
+            # expression(Ro)  #15
             
   )
   
@@ -698,17 +700,15 @@ diagram.AG3 = function(file = "Age Groups Model.png", save.png = FALSE, scaleX =
   m[[11,8]] = ""
   m[[12,9]] = ""
   
-  # positions of boxes
-  coord = matrix(nrow = Numgenerations, ncol = 2)
+  ### Positions of boxes
+  coord = matrix(nrow = nComp, ncol = 2)
   
   # Sc
   coord[1,1] = 0.5 - 0.9 * scaleX
   coord[1,2] = 0.5 + 1.1 * scaleY
-  
   # Sa
   coord[2,1] = 0.5 - 0.9 * scaleX
   coord[2,2] = 0.5 + 0.1 * scaleY
-  
   # So
   coord[3,1] = 0.5 - 0.9 * scaleX
   coord[3,2] = 0.5 - 0.9 * scaleY
@@ -716,11 +716,9 @@ diagram.AG3 = function(file = "Age Groups Model.png", save.png = FALSE, scaleX =
   # Ic
   coord[4,1] = 0.5 - 0.3 * scaleX
   coord[4,2] = 0.5 + 1.1 * scaleY
-  
   # Ia
   coord[5,1] = 0.5 - 0.3 * scaleX
   coord[5,2] = 0.5 + 0.1 * scaleY
-  
   # Io
   coord[6,1] = 0.5 - 0.3 * scaleX
   coord[6,2] = 0.5 - 0.9 * scaleY
@@ -728,11 +726,9 @@ diagram.AG3 = function(file = "Age Groups Model.png", save.png = FALSE, scaleX =
   # Hc
   coord[7,1] = 0.5 + 0.3 * scaleX
   coord[7,2] = 0.5 + 1.1 * scaleY
-  
   # Ha
   coord[8,1] = 0.5 + 0.3 * scaleX
   coord[8,2] = 0.5 + 0.1 * scaleY
-  
   # Ho
   coord[9,1] = 0.5 + 0.3 * scaleX
   coord[9,2] = 0.5 - 0.9 * scaleY
@@ -740,18 +736,15 @@ diagram.AG3 = function(file = "Age Groups Model.png", save.png = FALSE, scaleX =
   # Dc
   coord[10,1] = 0.5 + 0.9 * scaleX
   coord[10,2] = 0.5 + 2.1 * scaleY
-  
   # Da
   coord[11,1] = 0.5 + 0.9 * scaleX
   coord[11,2] = 0.5 + 1 * scaleY
-  
   # Do
   coord[12,1] = 0.5 + 0.9 * scaleX
-  coord[12,2] = 0.5 #- 0.3 * scaleY
+  coord[12,2] = 0.5 # - 0.3 * scaleY
   
-  diagram::plotmat(A = m, pos = coord, name = name, lwd = 2,
-          arr.width = 0.5, curve = 0,
-          box.size = 0.018, box.col = color, arr.type = "simple", 
-          arr.pos = 0.6, main = "Age Groups Model")
-  
+  ### Plot diagram
+  plotMatrix(m, pos = coord, name = name, col = color,
+	main = "SIR Model: 3 Age Groups",
+	box.size = 0.0175, box.cex = 1.5, arr.pos = 0.625, arr.lwd = lwd);
 }
