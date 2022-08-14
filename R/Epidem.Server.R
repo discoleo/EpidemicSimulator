@@ -9,7 +9,7 @@
 ### Supervisor: Leonard Mada
 ### Syonic SRL
 
-### based of:
+### Part of this work is based on:
 ### Team Project 2021
 ### Students:
 ###   Dora Calea, Ioana Obreja,
@@ -43,6 +43,7 @@ getServer = function() {
   values$Active = "H";
   values$outData = NULL;
   values$options = getOptions();
+  values$colDiagrams = getDiagramColors();
   
   # synchronise times across pages
   GetTime = function(type, idInput) {
@@ -66,7 +67,7 @@ getServer = function() {
     if(input$toggleB == FALSE)
       initSIR_Basic(custom, valTime)
     else
-      diagramBasicSIR();
+      diagramBasicSIR(col = values$colDiagrams);
   })
   
   ### Extended Model: Old Age + Hospital
@@ -91,7 +92,7 @@ getServer = function() {
                          flt=input$optTypeH, options = values$options);
       }
     } else
-      diagram.H();
+      diagram.H(col = values$colDiagrams);
   })
   
   
@@ -134,7 +135,7 @@ getServer = function() {
                        flt=input$optTypeEH, options = values$options);
       }
     } else
-      diagram.EH();
+      diagram.EH(col = values$colDiagrams);
   })
   
   
@@ -169,7 +170,7 @@ getServer = function() {
         }
     }
     else
-      diagramV(scaleX=0.9, scaleY=0.9)
+      diagramV(scaleX=0.9, scaleY=0.9, col = values$colDiagrams)
     
   })
   
@@ -205,7 +206,7 @@ getServer = function() {
         Sensitivity_VaccineStrat(input$optSensitivityVaccStrat, custom, valTime, min=min, max=max,
                                  flt=input$optTypeVS, options = values$options);
       }
-    } else diagramVS(scaleX=0.4, scaleY=0.4)
+    } else diagramVS(scaleX=0.4, scaleY=0.4, col = values$colDiagrams)
     
     
   })
@@ -249,7 +250,7 @@ getServer = function() {
         Sensitivity_2Viruses(input$optSensitivity2V, custom, valTime, min=min, max=max, 
                              flt = input$optType2V, options = values$options);
       }
-    } else diagram.2V(scaleX=0.3, scaleY=0.3)
+    } else diagram.2V(scaleX=0.3, scaleY=0.3, col = values$colDiagrams)
   })
   
   ### Age Groups
@@ -303,7 +304,7 @@ getServer = function() {
         Sensitivity_AG3(input$optSensitivityAG3, custom, valTime, min=min, max=max, 
                         flt = input$optTypeAG3, options = values$options);
       }
-    } else diagram.AG3(scaleX=0.2, scaleY=0.2)
+    } else diagram.AG3(scaleX=0.2, scaleY=0.2, col = values$colDiagrams)
   })
   
   ### Analysis
