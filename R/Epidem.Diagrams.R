@@ -20,6 +20,7 @@
 # Syonic SRL
 
 # Colors for compartments
+#' @export
 getDiagramColors = function() {
 	col = list(
 		S = "green", V = "light green", E = "light yellow", I = "yellow", 
