@@ -19,4 +19,4 @@ startSimulator()
 # start the simulator
 startSimulator()
 }
-\keyword{file}
+\keyword{app}
