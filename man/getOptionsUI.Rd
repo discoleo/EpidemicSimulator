@@ -1,6 +1,6 @@
 % File src/library/EpidemicSimulator/man/getOptionsUI.Rd
 \name{getOptionsUI}
-\alias{getOptionsUI}
+\alias{}
 \title{Provides various default values for the UI of the web app}
 \description{
   Provides specific default values for the parameters of the various compartmental models. These values are set as default values in the UI of the web app.
@@ -16,7 +16,8 @@
 \arguments{
 }
 \seealso{
-	\code{\link{startSimulator}}.
+	\code{\link{startSimulator}},
+	\code{\link{getOptions}}.
 }
 \examples{
 # print the default values
