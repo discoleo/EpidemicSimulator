@@ -18,8 +18,10 @@
 \seealso{
 	\code{\link{getOptionsUI}}.
 }
+
 \examples{
 # print the default values
 getOptions()
+}
 
-\keyword{options}
+\concept{options}
