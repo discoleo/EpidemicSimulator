@@ -1,11 +1,13 @@
 
+
 ### Global Options
 
+#' @export
 getOptions = function() {
   opt = list(
     ### Global Options - Models
     delay.vacc = 60,
-    #delay.2V = 160,
+    # delay.2V = 160,
     p.old = 0.2, # 0.2 = 20% of the population (old people)
     p.children = 0.2, # 0.2 = 20% of the population (children)
     death.rate.scale = 24,
@@ -44,4 +46,13 @@ getOptionsDescription = function() {
 	);
   
   return(descriptions);
+}
+
+### Colors for compartments
+#' @export
+getDiagramColors = function() {
+	col = list(
+		S = "green", V = "light green", E = "light yellow", I = "yellow", 
+		H = "orange", D = "gray", R = "green");
+	return(col);
 }

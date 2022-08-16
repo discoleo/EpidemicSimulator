@@ -19,15 +19,12 @@
 # Supervisor: Leonard Mada
 # Syonic SRL
 
-# Colors for compartments
-#' @export
-getDiagramColors = function() {
-	col = list(
-		S = "green", V = "light green", E = "light yellow", I = "yellow", 
-		H = "orange", D = "gray", R = "green");
-	return(col);
-}
 
+### Colors for compartments
+# - moved to file: Epidem.Options.R;
+
+
+### Helper Functions
 plotMatrix = function(m, pos, name, main, col,
 		box.size=0.0175, box.cex=1.75, arr.pos=0.75, arr.width=0.25,
 		lwd=2, arr.lwd = lwd) {
