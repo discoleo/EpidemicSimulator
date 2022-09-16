@@ -17,20 +17,22 @@
 ### UI: Help
 
 helpEpidem = function(id = "Help1"){
-  txtSIR = c("S = Susceptible", "I = Infected", "R = Recovered")
-  txtHosp = c("Sy = Susceptible young", "So = Susceptible old", 
-              "Iy = Infected young (staying in the community)", "Io = Infected old (staying in the community)", 
-              "H = Hospitalised", "Hcum = Hospitalisation Cumulated",
-              "Hy = Hospitalised young (infected and hospitalised)", "Ho = Hospitalised old (infected and hospitalised)",
-              "Dc = Death community", "Dh = Death Hospitalised",
-              "R = Recovered")
-  txtHospEH = c("Sy = Susceptible young", "So = Susceptible old", 
-                "Ey = Exposed young", "Eo = Exposed old",
-                "Iy = Infected young (staying in the community)", "Io = Infected old (staying in the community)", 
-                "H = Hospitalised", "Hcum = Hospitalisation Cumulated",
-                "Hy = Hospitalised young (infected and hospitalised)", "Ho = Hospitalised old (infected and hospitalised)",
-                "Dc = Death community", "Dh = Death Hospitalised",
-                "R = Recovered")
+  txtSIR = c("S = Susceptible", "I = Infected", "R = Recovered");
+  txtHosp = c(
+	"Sy = Susceptible young", "So = Susceptible old", 
+	"Iy = Infected young (staying in the community)", "Io = Infected old (staying in the community)", 
+	"H = Hospitalised (Young + Old)", "Hcum = Hospitalisation Cumulated",
+	"Hy = Hospitalised young (infected and hospitalised)", "Ho = Hospitalised old (infected and hospitalised)",
+	"Dc = Death (in Community)", "Dh = Death (in Hospital)",
+	"R = Recovered");
+  txtHospEH = c(
+	"Sy = Susceptible young", "So = Susceptible old", 
+	"Ey = Exposed young", "Eo = Exposed old",
+	"Iy = Infected young (staying in the community)", "Io = Infected old (staying in the community)", 
+	"H = Hospitalised (Young + Old)", "Hcum = Hospitalisation Cumulated",
+	"Hy = Hospitalised young (infected and hospitalised)", "Ho = Hospitalised old (infected and hospitalised)",
+	"Dc = Death (in Community)", "Dh = Death (in Hospital)",
+	"R = Recovered");
   txtV = c("Sy = Susceptible young", "So = Susceptible old", 
            "Iy = Infected young (staying in the community)", " Io = Infected old (staying in the community)", 
            "H = Hospitalised", "Hcum = Hospitalisation Cumulated",

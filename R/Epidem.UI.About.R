@@ -22,7 +22,8 @@ printAbout = function() {
 			https://github.com/BicaAnamaria/EpidemicSimulator</a>
 		</p>
 		<p>4. Package creation:
-			<br>- slightly improved &amp; modified code;
+			<br>- slightly modified &amp; improved code;
+			<br>- plan to release as R package;
 		</p>
 		");
 }

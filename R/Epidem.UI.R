@@ -1,16 +1,18 @@
-
 ######################
 ###
-### Epidemic Simulator - Bachelor Thesis
+### Epidemic Simulator
+### - Bachelor Thesis 2022 -
 ### Student: Anamaria Bica
 ### West University, Timisoara
 ### Year 3, Faculty of Computer Science
 ###
-### Coordinator: Daniela Zaharie
-### Supervisor: Leonard Mada
-### Syonic SRL
+### Coordinator: Prof. Dr. Daniela Zaharie
+### Supervisor: Dr. med. Leonard Mada
+###   Syonic SRL
 ###
-### based of:
+
+
+### Parts of the work are based on:
 ### Team Project 2021
 ### Students:
 ###   Dora Calea, Ioana Obreja,
@@ -20,6 +22,7 @@
 ### Supervisor: Leonard Mada
 ### Syonic SRL
 ###
+### ========================
 ### L. Mada: modified/improved;
 
 
@@ -272,6 +275,7 @@ getUI = function(opt = NULL) {
 				)
 			), 
 			
+			### Analysis
 			tabPanel("Analysis",
 				uiOutput("hrAnalysis"),
 				tableOutput("doAnalysis"),
@@ -280,6 +284,7 @@ getUI = function(opt = NULL) {
 				downloadButton("downloadData", "Download")
 			),
 			
+			### Other
 			tabPanel("Model Options",
 				tableOutput("printOptions")
 			),
@@ -298,5 +303,5 @@ getUI = function(opt = NULL) {
 ##############
 
 # to implement
-# tabsets(with their own models and parameters)
-# fancy(-er) display(plot up, params down)
+# tabsets (with their own models and parameters)
+# fancy(-er) display (plot up, params down)

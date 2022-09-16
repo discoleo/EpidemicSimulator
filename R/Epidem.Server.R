@@ -1,15 +1,17 @@
 ######################
 ###
-### Epidemic Simulator - Bachelor Thesis
+### Epidemic Simulator
+### - Bachelor Thesis 2022 -
 ### Student: Anamaria Bica
 ### West University, Timisoara
 ### Year 3, Faculty of Computer Science
 ###
-### Coordinator: Daniela Zaharie
-### Supervisor: Leonard Mada
-### Syonic SRL
+### Coordinator: Prof. Dr. Daniela Zaharie
+### Supervisor: Dr. med. Leonard Mada
+###   Syonic SRL
+###
 
-### Part of this work is based on:
+### Parts of the work are based on:
 ### Team Project 2021
 ### Students:
 ###   Dora Calea, Ioana Obreja,
@@ -19,6 +21,7 @@
 ### Supervisor: Leonard Mada
 ### Syonic SRL
 ###
+### ========================
 ### L. Mada: modified/improved;
 
 
@@ -38,11 +41,15 @@ getServer = function() {
   output$txtTwoVirus = renderText("Complex model: includes 2 viruses")
   output$txtAG3   = renderText("Complex model: stratified with 3 age groups")
   
+  # UI variables:
   values = reactiveValues();
-  # active Tab
+  # Active Tab
   values$Active = "H";
+  # Data frame with results of simulation
   values$outData = NULL;
+  # Global options
   values$options = getOptions();
+  # Color palette
   values$colDiagrams = getDiagramColors();
   
   # synchronise times across pages
@@ -253,7 +260,7 @@ getServer = function() {
     } else diagram.2V(scaleX=0.3, scaleY=0.3, col = values$colDiagrams)
   })
   
-  ### Age Groups
+  ### 3 Age Groups
   output$AgeGroupsModel = renderPlot({
     valTime = GetTime("AG3", "timeAG3");
     custom = list(infectAG3.cc = input$infectAG3.cc,
@@ -312,6 +319,7 @@ getServer = function() {
   output$hrAnalysis <- renderUI({
     hrAnalysis();
   })
+  # Additional Analysis
   output$doAnalysis = renderTable({
     summaryAnalysis(values$outData);
   }, align = c('c'))
